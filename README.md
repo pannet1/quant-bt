@@ -1,12 +1,12 @@
-# Python Backtesting Repository - Vision and Design Principles
+# Vision and Design Principles
 
 ## Vision
 
-The vision of quant-bt is repository is to provide a comprehensive and efficient Python-based backtesting framework for intraday stock trading and compound trades like option spreads. We aim to offer a powerful toolkit that empowers its developers to analyze and test their trading strategies rigorously, while being user-friendly and flexible enough to cater to various trading styles and asset classes.
+The vision of quant-bt is repository is to provide a comprehensive and efficient Python-based backtesting framework for intraday stock trading and compound trades like option spreads. We aim to offer a powerful toolkit that empowers its developers to analyze and test their trading strategies rigorously, while being user-friendly and flexible enough to cater to various trading styles and asset classes. Freelancers are welcome to create as many strategies for the clients.
 
 ## Costs
-1. A single source of data could be shared among its users and its cost be shared among the actual users.
-2. The server resource could be used on a rotation basis. A small fee could be paid to the one who is running the server.
+1. A single data could be sourced and its cost be shared among the actual users.
+2. The server resource could be used on a rotation basis. A small fee (the cost) could be paid to the one who is running the server.
 3. Vectorbt Pro version could be purchased and shared among the users as well, if necessary.
 
 Please note that it is not the obligation of the dormant users to pay any charges and will remain free of charge.
@@ -49,3 +49,6 @@ This repository is licensed under the [MIT License](LICENSE), granting you the f
 
 Trading involves risk, and backtesting is not a guarantee of future results. The purpose of this repository is to provide a framework for testing and analyzing trading strategies. Users should exercise caution and do their research before implementing any strategies in real trading environments. The maintainers of this repository are not responsible for any financial losses incurred through the use of this software.
 
+### Inspiration
+[quantplay](https://www.quantplay.tech) for backtesting
+[pyalgotrading](https://github.com/pannet1/pyalgotrading) for design 
