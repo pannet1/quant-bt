@@ -35,6 +35,7 @@ High-level modules should not depend on low-level modules directly. Instead, bot
 
 By adhering to these SOLID principles, the Python backtesting repository will have a well-structured and maintainable codebase that allows for easy extension, reduces code duplication, and enhances the overall flexibility of the framework. It encourages a systematic approach to design and facilitates collaboration among contributors by providing clear guidelines for building scalable and reliable backtesting solutions.
 
+[SOLID](https://bit.ly/3Q39Vp7)
 ## Contribution
 
 Contributions to the repository are welcome and encouraged. Whether it's bug fixes, new features, or documentation improvements, we value the community's efforts to make this backtesting framework better for everyone.
@@ -48,6 +49,7 @@ This repository is licensed under the [MIT License](LICENSE), granting you the f
 ## Disclaimer
 
 Trading involves risk, and backtesting is not a guarantee of future results. The purpose of this repository is to provide a framework for testing and analyzing trading strategies. Users should exercise caution and do their research before implementing any strategies in real trading environments. The maintainers of this repository are not responsible for any financial losses incurred through the use of this software.
+
 
 ### Inspiration
 [quantplay](https://www.quantplay.tech) for backtesting
