@@ -34,3 +34,13 @@ def SuperTrend(high:pd.Series, low:pd.Series, close:pd.Series, period:int = 7, m
 
 def SMA(series:pd.Series, period:int) -> pd.Series:
     return pl.from_pandas(series).rolling_mean(window_size=period).to_pandas()
+
+df = pd.read_csv("data/tata.csv")
+
+high = df['high']
+low = df['low']
+close = df['close']
+
+atr = SuperTrend(high, low, close)
+
+print(atr)
