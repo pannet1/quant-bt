@@ -1,7 +1,6 @@
 import polars as pl
 import pandas as pd
 from time import sleep
-import asyncio
 
 class Data_Streamer:
     def __init__(self) -> None:
@@ -17,13 +16,6 @@ class Data_Streamer:
         params : sleep_time -> return values after this much time
                             -> default value is 0.1 
         """
-        '''
-        ## read csv only to get its length
-        ## so that break ot of loop at length of csv file
-        input_file = open(file_name,"r+")
-        reader_file = csv.reader(input_file)
-        length = len(list(reader_file)) -1
-        '''
         df = pl.read_csv(file_name)
         length = df.height
 
@@ -98,7 +90,3 @@ class Data_Streamer:
             self.SMA(50)
 
             print(self.pl_df)
-
-lbt = Data_Streamer()
-
-lbt.Main_Loop("data/tata.csv")
