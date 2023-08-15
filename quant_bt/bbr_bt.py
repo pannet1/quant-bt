@@ -1,33 +1,32 @@
 from toolkit.logger import Logger
+from indicators.ta import Average_True_Range
 import numpy as np
 import pandas as pd
 import pendulum
 from backtesting import Strategy, Backtest
+from backtesting.test import SMA
+
+
+fibratio1 = 1.618
+fibratio2 = 2.618
+fibratio3 = 4.236
 
 
 class BbrBt(Strategy):
-    fibratio1 = 1.618
-    fibratio2 = 2.618
-    fibratio3 = 4.236
 
     def init(self):
-        self.period = 20
-        self.sma = np.convolve(self.data.Close, np.ones(
-            self.period)/self.period, mode='valid')
-        self.atr = np.mean(np.abs(np.diff(self.data.Close)))
-        self.r1 = self.atr * self.fibratio1
-        self.r2 = self.atr * self.fibratio2
-        self.r3 = self.atr * self.fibratio3
-        self.dir = 0
         self.logging = Logger(10)
+        self.atr = self.data['atr'].round(2)
+        self.sma = self.data['sma'].round(2)
+        self.r1 = self.data['r1'].round(2)
+        self.r2 = self.data['r2'].round(2)
+        self.r3 = self.data['r3'].round(2)
 
     def next(self):
-        top3 = self.sma[-1] + self.r3
-        top2 = self.sma[-1] + self.r2
-        top1 = self.sma[-1] + self.r1
-        bott1 = self.sma[-1] - self.r1
-        bott2 = self.sma[-1] - self.r2
-        bott3 = self.sma[-1] - self.r3
+        top2 = self.sma[-1] + self.r2[-1]
+        top1 = self.sma[-1] + self.r1[-1]
+        bott1 = self.sma[-1] - self.r1[-1]
+        bott2 = self.sma[-1] - self.r2[-1]
 
         """
         try:
@@ -39,6 +38,7 @@ class BbrBt(Strategy):
         except Exception as e:
             self.logging.debug(f" {e} while parsing timestamp {ts_b4}")
         """
+        self.logging.info(f"{top2}>{top1}>{bott1}>{bott2}")
         if self.position.is_long:
             if (
                 (self.data.Close[-1] < bott2)
@@ -83,15 +83,23 @@ class BbrBt(Strategy):
 
 
 data = pd.read_csv('output.csv', parse_dates=['Timestamp'])
+
+
 backtests = {}
 # Iterate over unique symbols and perform backtesting and plotting for each
 for symbol in data['Symbol'].unique():
     symbol_data = data[data['Symbol'] == symbol].set_index('Timestamp')
     symbol_data['Timestamp'] = symbol_data.index
+    symbol_data['atr'] = Average_True_Range(
+        symbol_data['High'], symbol_data['Low'], symbol_data['Close'], period=5)
+    symbol_data['sma'] = symbol_data.Close.rolling(20).mean()
+    symbol_data['r1'] = symbol_data.atr * fibratio1
+    symbol_data['r2'] = symbol_data.atr * fibratio2
+    symbol_data['r3'] = symbol_data.atr * fibratio3
 
     # Create a Backtest instance for the symbol's data
     backtests[symbol] = Backtest(
-        symbol_data, BbrBt, commission=0.001)
+        symbol_data, BbrBt, commission=0)
 
     # Run the backtest
     results = backtests[symbol].run()

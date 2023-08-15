@@ -1,0 +1,17 @@
+numpy
+pandas
+git+https://github.com/pannet1/omspy.git
+git+https://github.com/pannet1/omspy-brokers.git
+git+https://github.com/pannet1/toolkit.git
+pyaml
+pydantic==1.9
+pendulum
+smartapi-python
+websocket-client
+pyotp
+backtesting
+polars
+matplotlib
+mplfinance
+finplot
+PyQT5
