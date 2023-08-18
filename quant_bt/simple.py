@@ -1,8 +1,13 @@
 import pandas as pd
 from indicators.ta import Average_True_Range
 from time import sleep
-# from plots.simple import Plot
+from datetime import time
 import finplot as fplt
+
+fplt.background = "black"
+fplt.foreground = "white"
+fplt.cross_hair_color = "white"
+fplt.candle_shadow_width = 2
 
 # Define  Bands parameters
 window = 20
@@ -30,27 +35,42 @@ for symbol in unique_symbols:
     quantity = 1  # Quantity to buy/sell
     buy_price = 0
     sell_price = 0
+    enter_before = time(14, 20)
+    exit_before = time(15, 20)
 
     symbol_data['sell_arrow'] = None
     symbol_data['buy_arrow'] = None
+    SUP = RES = False
     for i in range(window, len(symbol_data)):
-        if ((symbol_data['Close'][i] < symbol_data['top1'][i])
-                and (symbol_data['Open'][i] > symbol_data['top1'][i])):
-            if position is None:
+        if (
+            position is None and
+            (symbol_data.index[i].time() < enter_before)
+        ):
+            if not RES and (symbol_data['High'][i] >= symbol_data['top2'][i]):
+                RES = True
+            if not SUP and (symbol_data['Low'][i] <= symbol_data['bott2'][i]):
+                SUP = True
+            if (
+                RES and
+                (symbol_data['Close'][i] < symbol_data['top1'][i])
+                    and (symbol_data['Open'][i] > symbol_data['top1'][i])):
                 position = 'short'
                 sell_price = symbol_data['Close'][i]
                 capital += sell_price * quantity
                 symbol_data['sell_arrow'][i] = symbol_data['High'][i]
-        elif ((symbol_data['Close'][i] > symbol_data['bott1'][i])
-              and (symbol_data['Open'][i] < symbol_data['bott1'][i])):
-            if position is None:
+                RES = False
+            elif (
+                SUP and
+                (symbol_data['Close'][i] > symbol_data['bott1'][i])
+                    and (symbol_data['Open'][i] < symbol_data['bott1'][i])):
                 position = 'long'
                 buy_price = symbol_data['Close'][i]
                 capital -= buy_price * quantity
                 symbol_data['buy_arrow'][i] = symbol_data['Low'][i]
-        # Close positions if necessary
-        if position == "short":
+                SUP = False
+        elif position == "short":
             if (
+                (symbol_data.index[i].time() > exit_before) or
                 ((symbol_data['Close'][i] > symbol_data['top2'][i])
                  and (symbol_data['Open'][i] <= symbol_data['top2'][i]))
                 or (symbol_data['Close'][i] < symbol_data['bott1'][i])
@@ -61,6 +81,7 @@ for symbol in unique_symbols:
                 symbol_data['buy_arrow'][i] = symbol_data['Low'][i]
         elif position == "long":
             if (
+                (symbol_data.index[i].time() > exit_before) or
                 ((symbol_data['Close'][i] < symbol_data['bott2'][i])
                  and (symbol_data['Open'][i] >= symbol_data['bott2'][i]))
                 or (symbol_data['Close'][i] > symbol_data['top1'][i])
@@ -75,7 +96,7 @@ for symbol in unique_symbols:
     # open symbol.csv and read it in pandas
     symbol_data = pd.read_csv(f"{symbol}.csv")
     df = symbol_data.rename(columns={
-                            'Timestamp': 'time', 'Open': 'open', 'Close': 'close', 'High': 'high', 'Low': 'low', 'Volume': 'volume'})
+        'Timestamp': 'time', 'Open': 'open', 'Close': 'close', 'High': 'high', 'Low': 'low', 'Volume': 'volume'})
     df = df.astype({'time': 'datetime64[ns]'})
 
 # create two axes
@@ -92,15 +113,14 @@ for symbol in unique_symbols:
     fplt.plot(df['time'], df['buy_arrow'], ax=ax,
               color='#4a5', style='^', width=2, legend='buy')
     fplt.plot(df['time'], df['sell_arrow'], ax=ax,
-              color='red', style='v', width=2, legend='sell')
+              color='orange', style='v', width=2, legend='sell')
 
     fplt.autoviewrestore()
 
+    def save():
+        fplt.screenshot(open(symbol + '.png', 'wb'))
+    # wait some until we're rendered
+    fplt.timer_callback(save, 0.5, single_shot=True)
+
     # we're done
     fplt.show()
-    """
-    lst = [symbol_data['top2'], symbol_data['top1'], symbol_data['sma'],
-           symbol_data['bott1'], symbol_data['bott2']]
-    Plot(symbol, symbol_data[['Open', 'Close', 'High', 'Low']], lst)
-    """
-    sleep(10)
