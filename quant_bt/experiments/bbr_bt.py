@@ -1,4 +1,5 @@
 from toolkit.logger import Logger
+from downloaders.ao_dl import AoDl
 from indicators.ta import Average_True_Range
 import numpy as np
 import pandas as pd
@@ -82,9 +83,11 @@ class BbrBt(Strategy):
                     f"SELL: {self.data.Timestamp[-1]} {self.position.is_short}")
 
 
-data = pd.read_csv('output.csv', parse_dates=['Timestamp'])
 
+sname = "simple"
+aodl = AoDl(sname)
 
+data = pd.read_csv(f'data/{sname}/output.csv', parse_dates=['Timestamp'])
 backtests = {}
 # Iterate over unique symbols and perform backtesting and plotting for each
 for symbol in data['Symbol'].unique():

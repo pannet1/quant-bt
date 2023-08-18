@@ -92,7 +92,7 @@ for symbol in unique_symbols:
                 symbol_data['sell_arrow'][i] = symbol_data['High'][i]
 
     print(f"Final Capital for {symbol}: {capital}")
-    symbol_data.to_csv(f"{symbol}.csv")
+    symbol_data.to_csv(f"data/{symbol}.csv")
     # open symbol.csv and read it in pandas
     symbol_data = pd.read_csv(f"{symbol}.csv")
     df = symbol_data.rename(columns={
@@ -118,7 +118,7 @@ for symbol in unique_symbols:
     fplt.autoviewrestore()
 
     def save():
-        fplt.screenshot(open(symbol + '.png', 'wb'))
+        fplt.screenshot(open('screenshots/' + symbol + '.png', 'wb'))
     # wait some until we're rendered
     fplt.timer_callback(save, 0.5, single_shot=True)
 
