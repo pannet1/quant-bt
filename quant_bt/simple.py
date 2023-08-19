@@ -1,21 +1,34 @@
-import pandas as pd
+import os
 from indicators.ta import Average_True_Range
-from time import sleep
+from downloaders.ao_dl import AoDl
 from datetime import time
 import finplot as fplt
+import pandas as pd
 
+# finplot settings
 fplt.background = "black"
 fplt.foreground = "white"
 fplt.cross_hair_color = "white"
 fplt.candle_shadow_width = 2
 
+dir_path = "../../../"
 # Define  Bands parameters
 window = 20
 fibratio1 = 1.618
 fibratio2 = 2.618
 fibratio3 = 4.236
 
-data = pd.read_csv('output.csv', parse_dates=['Timestamp'])
+current_file_path = __file__
+current_file_name_with_extension = os.path.basename(current_file_path)
+startegy, _ = os.path.splitext(current_file_name_with_extension)
+historicParam = {
+    "exchange": "NSE",
+    "interval": "FIVE_MINUTE",
+    "fromdate": "2023-05-01 09:00",
+    "todate": "2023-08-18 09:16"
+}
+aodl = AoDl(startegy, hist_param=historicParam, dir_path=dir_path)
+data = pd.read_csv(f'data/{startegy}/output.csv', parse_dates=['Timestamp'])
 unique_symbols = data['Symbol'].unique()
 
 for symbol in unique_symbols:
@@ -92,14 +105,14 @@ for symbol in unique_symbols:
                 symbol_data['sell_arrow'][i] = symbol_data['High'][i]
 
     print(f"Final Capital for {symbol}: {capital}")
-    symbol_data.to_csv(f"data/{symbol}.csv")
+    symbol_data.to_csv(f"data/{startegy}/{symbol}.csv")
     # open symbol.csv and read it in pandas
-    symbol_data = pd.read_csv(f"{symbol}.csv")
+    symbol_data = pd.read_csv(f"data/{startegy}/{symbol}.csv")
     df = symbol_data.rename(columns={
         'Timestamp': 'time', 'Open': 'open', 'Close': 'close', 'High': 'high', 'Low': 'low', 'Volume': 'volume'})
     df = df.astype({'time': 'datetime64[ns]'})
 
-# create two axes
+# create axes
     ax = fplt.create_plot(symbol)
 
 # plot candle sticks

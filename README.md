@@ -54,3 +54,13 @@ Trading involves risk, and backtesting is not a guarantee of future results. The
 ### Inspiration
 [quantplay](https://www.quantplay.tech) for backtesting
 [pyalgotrading](https://github.com/pannet1/pyalgotrading) for design 
+
+## File Structure 
+`data` directory for strategywise outputs from programs
+`downloaders` get data from various sources
+`experiments` are the ones where we will keep our work in progress / dirty / scratched py files
+`plots` are general programs that create plots if necessary
+`tests` are python tests cases or other simple tests you have have
+`universe` are just stock symbols which will be used by downloaders to get us data
+`writeups` are place md files are stored which may used to describe the strategies you are backtesting.
+each .py file in the root directory is a strategy

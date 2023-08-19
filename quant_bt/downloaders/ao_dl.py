@@ -51,12 +51,9 @@ class AoDl:
         for symbol in df_tsym.symbol:
             token = get_tkn_fm_sym(symbol+"-EQ")
             historicParam = {
-                "exchange": "NSE",
                 "symboltoken": str(token),
-                "interval": "FIVE_MINUTE",
-                "fromdate": "2023-08-01 09:00",
-                "todate": "2023-08-18 09:16"
             }
+            historicParam.update(param)
             resp = ao.obj.getCandleData(historicParam)
             if resp is not None and isinstance(resp, dict) and resp.get('data', False):
                 candle[symbol] = [x for x in resp['data']]
