@@ -1,4 +1,4 @@
-Timestamp,Symbol,Open,High,Low,Close,Volume,atr,sma,top2,top1,bott1,bott2,sell_arrow,buy_arrow,pnl
+Timestamp,Symbol,Open,High,Low,Close,Volume,atr,sma,top2,top1,bott1,bott2,sell_arrow,buy_arrow,returns
 2023-07-11 11:25:00,SBIN,594.15,594.2,593.0,593.15,202564,1.2000000000000455,,,,,,,,
 2023-07-11 11:30:00,SBIN,593.15,594.15,593.05,593.65,278124,1.180000000000041,,,,,,,,
 2023-07-11 11:35:00,SBIN,593.6,593.75,592.6,593.3,151135,1.1740000000000284,,,,,,,,

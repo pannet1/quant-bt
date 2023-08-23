@@ -117,21 +117,21 @@ for symbol in unique_symbols:
     symbol_data.to_csv(f"data/{strategy}/{symbol}.csv")
     """
      calculate tearsheet
+    """
+    # convert timestamp to date
     df = symbol_data.dropna(subset=['returns'])
     df = df[['returns']]
-    df['Date'] = df.index.date
-    df = df.groupby('Date').sum()
-    # Convert the index to a datetime index (if not already)
-    df.index = pd.to_datetime(df.index)
-
     # Remove time zone information from the index
     df.index = df.index.tz_localize(None)
-    print(df.tail(5))
+    # Convert the index to a datetime index (if not already)
+    df.index = pd.to_datetime(df.index)
+    # Converting to returns
+    df['returns'] = df['returns'] / capital      
     # extend pandas functionality with metrics, etc.
     qs.extend_pandas()
-    df.plot_earnings()
-    # qs.reports.metrics(df)
-    sleep(100)
+    qs.reports.metrics(df.returns, cumulative=False)  # turn off compounding
+    """
+        plot the trades
     """
     # open symbol.csv and read it in pandas
     symbol_data = pd.read_csv(f"data/{strategy}/{symbol}.csv")
