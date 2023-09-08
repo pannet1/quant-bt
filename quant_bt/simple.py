@@ -1,4 +1,4 @@
-from indicators.ta import Average_True_Range
+from indicators.ta_ import Average_True_Range
 from downloaders.ao_dl import AoDl
 import quantstats as qs
 import os
