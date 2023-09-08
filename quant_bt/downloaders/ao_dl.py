@@ -1,7 +1,7 @@
 import csv
 from omspy_brokers.angel_one import AngelOne
 from toolkit.fileutils import Fileutils
-from lib.universe import symbols
+from library.universe import symbols
 import sys
 import json
 from time import sleep
