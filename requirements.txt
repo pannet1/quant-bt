@@ -16,3 +16,4 @@ mplfinance
 finplot
 PyQT5
 pyfolio
+quantstats
