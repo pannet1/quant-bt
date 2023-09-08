@@ -15,7 +15,7 @@ fplt.candle_shadow_width = 2
 
 dir_path = "../../../"
 # Define  Bands parameters
-window = 20
+window = 30
 fibratio1 = 1.618
 fibratio2 = 2.618
 fibratio3 = 4.236
@@ -126,7 +126,7 @@ for symbol in unique_symbols:
     # Convert the index to a datetime index (if not already)
     df.index = pd.to_datetime(df.index)
     # Converting to returns
-    df['returns'] = df['returns'] / capital      
+    df['returns'] = df['returns'] / capital
     # extend pandas functionality with metrics, etc.
     qs.extend_pandas()
     qs.reports.metrics(df.returns, cumulative=False)  # turn off compounding

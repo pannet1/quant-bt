@@ -1,4 +1,4 @@
-Timestamp,Symbol,Open,High,Low,Close,Volume,atr,sma,top2,top1,bott1,bott2,sell_arrow,buy_arrow,pnl
+Timestamp,Symbol,Open,High,Low,Close,Volume,atr,sma,top2,top1,bott1,bott2,sell_arrow,buy_arrow,returns
 2023-07-11 11:25:00,ICICIBANK,950.35,950.65,949.05,949.6,149334,1.6000000000000227,,,,,,,,
 2023-07-11 11:30:00,ICICIBANK,949.6,950.5,949.5,950.2,410434,1.4800000000000182,,,,,,,,
 2023-07-11 11:35:00,ICICIBANK,950.2,950.25,949.05,949.5,250496,1.4240000000000237,,,,,,,,

@@ -1,4 +1,4 @@
-Timestamp,Symbol,Open,High,Low,Close,Volume,atr,sma,top2,top1,bott1,bott2,sell_arrow,buy_arrow,pnl
+Timestamp,Symbol,Open,High,Low,Close,Volume,atr,sma,top2,top1,bott1,bott2,sell_arrow,buy_arrow,returns
 2023-07-11 11:25:00,HINDALCO,427.0,427.0,425.85,426.05,77193,1.1499999999999773,,,,,,,,
 2023-07-11 11:30:00,HINDALCO,426.05,426.25,425.15,425.2,53846,1.1399999999999864,,,,,,,,
 2023-07-11 11:35:00,HINDALCO,425.45,426.45,425.2,426.1,46956,1.1619999999999893,,,,,,,,
