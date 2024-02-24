@@ -9,12 +9,8 @@ pendulum
 smartapi-python
 websocket-client
 pyotp
-backtesting
 polars
-matplotlib
-mplfinance
 finplot
 PyQT5
-pyfolio
-quantstats
 pyarrow
+logzero
